@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.22000.0</TargetPlatformMinVersion>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PlatformTarget>x64</PlatformTarget>
+    <Platforms>x64</Platforms>
+    <IsTestProject>true</IsTestProject>
+    <IsPackable>false</IsPackable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MSTest" Version="4.3.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\NativeHub\Models\Models.cs" Link="App\Models.cs" />
+    <Compile Include="..\NativeHub\Services\ClockService.cs" Link="App\ClockService.cs" />
+    <Compile Include="..\NativeHub\Services\FileSearchService.cs" Link="App\FileSearchService.cs" />
+    <Compile Include="..\NativeHub\Services\JsonStore.cs" Link="App\JsonStore.cs" />
+    <Compile Include="..\NativeHub\Services\NoteService.cs" Link="App\NoteService.cs" />
+    <Compile Include="..\NativeHub\Services\NativOs\MinefieldEngine.cs" Link="App\MinefieldEngine.cs" />
+    <Compile Include="..\NativeHub\Services\NativOs\FallingBlocksEngine.cs" Link="App\FallingBlocksEngine.cs" />
+    <Compile Include="..\NativeHub\Services\NativOs\VoxelWorld.cs" Link="App\VoxelWorld.cs" />
+    <Compile Include="..\NativeHub\Services\NativOs\VoxelRenderer.cs" Link="App\VoxelRenderer.cs" />
+    <Compile Include="..\NativeHub\Services\NativOs\NativOsSessionService.cs" Link="App\NativOsSessionService.cs" />
+    <Compile Include="..\NativeHub\Services\UtilityFormatting.cs" Link="App\UtilityFormatting.cs" />
+    <None Include="..\NativeHub\NativeDependencies\Everything64.dll" Link="Everything64.dll" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

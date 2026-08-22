@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="NativeHub.Pages.NativOsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Loaded="Page_Loaded"
+    Unloaded="Page_Unloaded"
+    Background="#FF05070B">
+    <Grid x:Name="Root">
+        <Grid x:Name="PowerLayer" Background="#FF05070B">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="18">
+                <Button
+                    x:Name="PowerButton"
+                    Width="104"
+                    Height="104"
+                    Padding="0"
+                    HorizontalAlignment="Center"
+                    CornerRadius="52"
+                    Click="PowerButton_Click"
+                    AutomationProperties.Name="Turn on NativOS">
+                    <FontIcon Glyph="&#xE7E8;" FontSize="48" />
+                </Button>
+                <TextBlock Text="NativOS" FontSize="32" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="White" />
+                <TextBlock Text="A fictional computer inside NativeHub" HorizontalAlignment="Center" Foreground="#FFA9B3C4" />
+            </StackPanel>
+        </Grid>
+
+        <Grid x:Name="BootLayer" Visibility="Collapsed" Padding="36" Background="#FF020409">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ScrollViewer x:Name="BootScroller" VerticalScrollBarVisibility="Hidden">
+                <TextBlock
+                    x:Name="BootText"
+                    FontFamily="Cascadia Mono"
+                    FontSize="16"
+                    Foreground="#FF8FFFA5"
+                    TextWrapping="Wrap"
+                    AutomationProperties.LiveSetting="Polite" />
+            </ScrollViewer>
+            <StackPanel Grid.Row="1" Spacing="8">
+                <ProgressBar x:Name="BootProgressBar" Height="4" Minimum="0" Maximum="100" />
+                <TextBlock x:Name="BootStatusText" Text="Power-on self test" FontFamily="Cascadia Mono" Foreground="#FF8ED6FF" />
+            </StackPanel>
+        </Grid>
+
+        <Grid x:Name="DesktopLayer" Visibility="Collapsed">
+            <Grid.Background>
+                <ImageBrush ImageSource="ms-appx:///Assets/NativOS/BlueMarble.jpg" Stretch="UniformToFill" />
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="44" />
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Rectangle Fill="#30000000" IsHitTestVisible="False" />
+                <StackPanel Margin="16" Spacing="10" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Button Tag="computer" Click="DesktopIcon_Click" Width="104" Height="88" Background="#34081526" ToolTipService.ToolTip="Open NativOS Computer" AutomationProperties.Name="Open Computer">
+                        <StackPanel Spacing="4"><FontIcon Glyph="&#xE7F8;" FontSize="32" /><TextBlock Text="Computer" TextAlignment="Center" /></StackPanel>
+                    </Button>
+                    <Button Tag="minefield" Click="DesktopIcon_Click" Width="104" Height="88" Background="#34081526" ToolTipService.ToolTip="Open Minefield" AutomationProperties.Name="Open Minefield">
+                        <StackPanel Spacing="4"><FontIcon Glyph="&#xE815;" FontSize="32" /><TextBlock Text="Minefield" TextAlignment="Center" /></StackPanel>
+                    </Button>
+                    <Button Tag="falling" Click="DesktopIcon_Click" Width="104" Height="88" Background="#34081526" ToolTipService.ToolTip="Open Falling Blocks" AutomationProperties.Name="Open Falling Blocks">
+                        <StackPanel Spacing="4"><FontIcon Glyph="&#xECA5;" FontSize="32" /><TextBlock Text="Falling Blocks" TextAlignment="Center" TextWrapping="Wrap" MaxWidth="88" /></StackPanel>
+                    </Button>
+                    <Button Tag="blockworld" Click="DesktopIcon_Click" Width="104" Height="88" Background="#34081526" ToolTipService.ToolTip="Open BlockWorld" AutomationProperties.Name="Open BlockWorld">
+                        <StackPanel Spacing="4"><FontIcon Glyph="&#xE719;" FontSize="32" /><TextBlock Text="BlockWorld" TextAlignment="Center" /></StackPanel>
+                    </Button>
+                </StackPanel>
+                <Canvas x:Name="WindowCanvas" Margin="118,12,12,12" SizeChanged="WindowCanvas_SizeChanged" />
+
+                <Border
+                    x:Name="StartMenu"
+                    Width="310"
+                    Margin="8"
+                    Padding="14"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Background="#F3142032"
+                    BorderBrush="#FF7695C0"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Visibility="Collapsed">
+                    <Grid RowSpacing="12">
+                        <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="*" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Border Width="42" Height="42" CornerRadius="21" Background="#FF3A72B8"><FontIcon Glyph="&#xE77B;" /></Border>
+                            <StackPanel><TextBlock Text="Guest" FontSize="18" FontWeight="SemiBold" /><TextBlock Text="NativOS local session" Foreground="#FFB5C3D8" /></StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Spacing="4">
+                            <Button Tag="computer" Click="DesktopIcon_Click" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Content="Computer" />
+                            <Button Tag="minefield" Click="DesktopIcon_Click" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Content="Minefield" />
+                            <Button Tag="falling" Click="DesktopIcon_Click" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Content="Falling Blocks" />
+                            <Button Tag="blockworld" Click="DesktopIcon_Click" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Content="BlockWorld" />
+                        </StackPanel>
+                        <Button Grid.Row="2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Click="ShutDown_Click" AutomationProperties.Name="Shut down NativOS">
+                            <StackPanel Orientation="Horizontal" Spacing="8"><FontIcon Glyph="&#xE7E8;" /><TextBlock Text="Shut down" /></StackPanel>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Border Grid.Row="1" Background="#F5101B2B" BorderBrush="#FF6B85A8" BorderThickness="0,1,0,0">
+                <Grid Margin="6,4" ColumnSpacing="8">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                    <Button
+                        x:Name="StartButton"
+                        Width="36"
+                        Height="36"
+                        Padding="0"
+                        CornerRadius="0"
+                        Click="StartButton_Click"
+                        AutomationProperties.Name="Open NativOS Start menu"
+                        ToolTipService.ToolTip="Home">
+                        <FontIcon Glyph="&#xE80F;" FontSize="16" />
+                    </Button>
+                    <StackPanel x:Name="TaskButtonsPanel" Grid.Column="1" Orientation="Horizontal" Spacing="4" />
+                    <Button
+                        x:Name="FullScreenButton"
+                        Grid.Column="2"
+                        Width="36"
+                        Height="36"
+                        Padding="0"
+                        Click="FullScreenButton_Click"
+                        AutomationProperties.Name="Enter borderless full screen"
+                        ToolTipService.ToolTip="Borderless full screen (F11)">
+                        <FontIcon x:Name="FullScreenIcon" Glyph="&#xE740;" FontSize="15" />
+                    </Button>
+                    <StackPanel Grid.Column="3" Margin="8,0" VerticalAlignment="Center">
+                        <TextBlock x:Name="TaskbarClock" HorizontalAlignment="Right" FontFamily="Cascadia Mono" FontWeight="SemiBold" />
+                        <TextBlock x:Name="TaskbarDate" HorizontalAlignment="Right" FontSize="11" Foreground="#FFC7D5E9" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>

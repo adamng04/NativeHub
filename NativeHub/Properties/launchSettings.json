@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "NativeHub (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "NativeHub (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

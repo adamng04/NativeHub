@@ -1,0 +1,11 @@
+.vs/
+**/bin/
+**/obj/
+build/
+*.pfx
+*.cer
+AppPackages/
+*.msix
+*.msixbundle
+*.appinstaller
+*.pri

@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap desktop com rescap">
+
+  <Identity
+    Name="AC0B2E90-A1E7-4C5F-A14C-2E6BDFB0ECA7"
+    Publisher="CN=NativeHub Development"
+    Version="1.0.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="AC0B2E90-A1E7-4C5F-A14C-2E6BDFB0ECA7" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+  <Properties>
+    <DisplayName>NativeHub</DisplayName>
+    <PublisherDisplayName>NativeHub</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.22000.0" MaxVersionTested="10.0.26226.0" />
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.22000.0" MaxVersionTested="10.0.26226.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="$targetentrypoint$">
+      <uap:VisualElements
+        DisplayName="NativeHub"
+        Description="NativeHub"
+        BackgroundColor="transparent"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      </uap:VisualElements>
+      <Extensions>
+        <desktop:Extension Category="windows.toastNotificationActivation">
+          <desktop:ToastNotificationActivation ToastActivatorCLSID="4E617469-7665-4875-8B31-4E6174697665" />
+        </desktop:Extension>
+        <com:Extension Category="windows.comServer">
+          <com:ComServer>
+            <com:ExeServer Executable="NativeHub.exe" DisplayName="NativeHub" Arguments="----AppNotificationActivated:">
+              <com:Class Id="4E617469-7665-4875-8B31-4E6174697665" />
+            </com:ExeServer>
+          </com:ComServer>
+        </com:Extension>
+        <desktop:Extension Category="windows.startupTask" Executable="NativeHub.exe" EntryPoint="Windows.FullTrustApplication">
+          <desktop:StartupTask TaskId="NativeHubStartup" Enabled="false" DisplayName="NativeHub" />
+        </desktop:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="NativeHub.Controls.VoxelSandboxControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    xmlns:local="using:NativeHub.Controls"
+    x:Name="RootControl"
+    IsTabStop="True"
+    KeyDown="RootControl_KeyDown"
+    KeyUp="RootControl_KeyUp">
+    <Grid Padding="10" RowSpacing="8">
+        <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="*" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+        <Grid ColumnSpacing="8">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+            <ComboBox x:Name="BlockBox" Width="126" SelectionChanged="BlockBox_SelectionChanged" AutomationProperties.Name="Selected block">
+                <ComboBoxItem Content="1 · Grass" Tag="Grass" IsSelected="True" />
+                <ComboBoxItem Content="2 · Dirt" Tag="Dirt" />
+                <ComboBoxItem Content="3 · Stone" Tag="Stone" />
+                <ComboBoxItem Content="4 · Sand" Tag="Sand" />
+                <ComboBoxItem Content="5 · Wood" Tag="Wood" />
+            </ComboBox>
+            <ToggleSwitch x:Name="FlightSwitch" Grid.Column="1" Header="Flight" Toggled="FlightSwitch_Toggled" />
+            <Button x:Name="MouseLookButton" Grid.Column="2" Content="Capture mouse" Click="MouseLookButton_Click" />
+            <TextBlock x:Name="SaveStatusText" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#FFB8C8DE" AutomationProperties.LiveSetting="Polite" />
+            <Button Grid.Column="4" Content="Save" Click="Save_Click" />
+            <Button Grid.Column="5" Content="World options" Click="WorldOptions_Click" />
+            <Button Grid.Column="6" Content="Reset world" Click="Reset_Click" />
+        </Grid>
+
+        <Border Grid.Row="1" Background="Black" BorderBrush="#FF6A88B5" BorderThickness="1" CornerRadius="5">
+            <Grid>
+                <canvas:CanvasControl
+                    x:Name="GameCanvas"
+                    IsTabStop="True"
+                    CreateResources="GameCanvas_CreateResources"
+                    Draw="GameCanvas_Draw" />
+                <local:CursorPanel
+                    x:Name="PointerSurface"
+                    Background="Transparent"
+                    PointerPressed="GameCanvas_PointerPressed"
+                    PointerWheelChanged="GameCanvas_PointerWheelChanged"
+                    RightTapped="GameCanvas_RightTapped" />
+                <Border Margin="10" Padding="8,5" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#B5000000" CornerRadius="4" IsHitTestVisible="False">
+                    <TextBlock x:Name="HudText" FontFamily="Cascadia Mono" Foreground="White" />
+                </Border>
+                <Border x:Name="MouseHint" Margin="10" Padding="10,7" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#D8101A28" CornerRadius="5" IsHitTestVisible="False">
+                    <TextBlock Text="Click the view to capture mouse look · Esc releases" Foreground="White" />
+                </Border>
+            </Grid>
+        </Border>
+
+        <TextBlock Grid.Row="2" Text="WASD move · mouse/arrow keys look · Space jump/up · Shift down in flight · left click breaks · right click places · 1–5 selects · F toggles flight" TextWrapping="Wrap" Foreground="#FFB8C8DE" />
+    </Grid>
+</UserControl>

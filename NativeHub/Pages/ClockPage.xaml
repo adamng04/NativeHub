@@ -1,0 +1,101 @@
+<Page
+    x:Class="NativeHub.Pages.ClockPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NativeHub.Pages"
+    Loaded="Page_Loaded"
+    Unloaded="Page_Unloaded">
+    <Grid Padding="24" RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock Text="World clock" Style="{StaticResource TitleTextBlockStyle}" />
+                <TextBlock Text="Twelve cities · local DST rules · two numeric systems" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+            </StackPanel>
+            <ComboBox
+                x:Name="DigitsBox"
+                Grid.Column="1"
+                MinWidth="220"
+                Header="Numerals"
+                SelectionChanged="DigitsBox_SelectionChanged">
+                <ComboBoxItem Content="Arabic numerals (0–9)" Tag="Arabic" />
+                <ComboBoxItem Content="Braille numerals" Tag="Braille" />
+            </ComboBox>
+        </Grid>
+
+        <InfoBar
+            x:Name="BrailleInfoBar"
+            Grid.Row="1"
+            Severity="Informational"
+            IsOpen="False"
+            IsClosable="True"
+            Title="Braille display"
+            Message="Screen readers still announce ordinary localized time.">
+            <InfoBar.ActionButton>
+                <Button
+                    Content="Don't show again"
+                    Click="BrailleInfoBar_DontShowAgain_Click"
+                    AutomationProperties.HelpText="Permanently hide this Braille display notice. It can be restored in Settings." />
+            </InfoBar.ActionButton>
+        </InfoBar>
+
+        <ScrollViewer
+            Grid.Row="2"
+            HorizontalScrollMode="Disabled"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollMode="Enabled"
+            VerticalScrollBarVisibility="Auto">
+            <ItemsRepeater
+                x:Name="ClockItems"
+                HorizontalAlignment="Stretch"
+                AutomationProperties.Name="World clocks">
+                <ItemsRepeater.Layout>
+                    <UniformGridLayout
+                        Orientation="Horizontal"
+                        MaximumRowsOrColumns="3"
+                        MinItemWidth="280"
+                        MinColumnSpacing="12"
+                        MinRowSpacing="12"
+                        ItemsStretch="Fill"
+                        ItemsJustification="Start" />
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate x:DataType="local:ClockCardView">
+                        <Border
+                            MinHeight="146"
+                            Padding="18"
+                            HorizontalAlignment="Stretch"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <StackPanel Spacing="4">
+                                <TextBlock
+                                    Text="{x:Bind City}"
+                                    FontSize="20"
+                                    FontWeight="SemiBold"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    Text="{x:Bind TimeText, Mode=OneWay}"
+                                    FontFamily="{x:Bind TimeFontFamily, Mode=OneWay}"
+                                    FontSize="{x:Bind TimeFontSize, Mode=OneWay}"
+                                    AutomationProperties.Name="{x:Bind AccessibleName, Mode=OneWay}" />
+                                <TextBlock
+                                    Text="{x:Bind DateText, Mode=OneWay}"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </ScrollViewer>
+    </Grid>
+</Page>
